@@ -25,9 +25,26 @@ classifier will also be demonstrated.
 # redundant (random combinations of the informative features) and the
 # remaining 8 are uninformative (random numbers). Of the 100,000 samples, 1,000
 # will be used for model fitting and the rest for testing.
-
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 from sklearn.datasets import make_classification
 from sklearn.model_selection import train_test_split
+from matplotlib.gridspec import GridSpec
+from sklearn.calibration import CalibratedClassifierCV, CalibrationDisplay
+from sklearn.linear_model import LogisticRegression
+from sklearn.naive_bayes import GaussianNB
+from sklearn.svm import LinearSVC
+from collections import defaultdict
+from sklearn.metrics import (
+    precision_score,
+    recall_score,
+    f1_score,
+    brier_score_loss,
+    log_loss,
+    roc_auc_score,
+)
+
 
 X, y = make_classification(
     n_samples=100_000, n_features=20, n_informative=2, n_redundant=10, random_state=42
@@ -57,12 +74,6 @@ X_train, X_test, y_train, y_test = train_test_split(
 # predicted probability for each bin on the x-axis and the fraction of positive
 # classes in each bin on the y-axis.
 
-import matplotlib.pyplot as plt
-from matplotlib.gridspec import GridSpec
-
-from sklearn.calibration import CalibratedClassifierCV, CalibrationDisplay
-from sklearn.linear_model import LogisticRegression
-from sklearn.naive_bayes import GaussianNB
 
 lr = LogisticRegression(C=1.0)
 gnb = GaussianNB()
@@ -136,18 +147,6 @@ plt.show()
 # :ref:`precision, recall, F1 score <precision_recall_f_measure_metrics>` and
 # :ref:`ROC AUC <roc_metrics>`.
 
-from collections import defaultdict
-
-import pandas as pd
-
-from sklearn.metrics import (
-    precision_score,
-    recall_score,
-    f1_score,
-    brier_score_loss,
-    log_loss,
-    roc_auc_score,
-)
 
 scores = defaultdict(list)
 for i, (clf, name) in enumerate(clf_list):
@@ -194,10 +193,6 @@ score_df
 #   :term:`decision_function` into [0, 1] by applying min-max scaling.
 # * :class:`~sklearn.svm.LinearSVC` with isotonic and sigmoid
 #   calibration (see :ref:`User Guide <calibration>`)
-
-import numpy as np
-
-from sklearn.svm import LinearSVC
 
 
 class NaivelyCalibratedLinearSVC(LinearSVC):
@@ -313,6 +308,8 @@ for i, (clf, name) in enumerate(clf_list):
     score_df.round(decimals=3)
 
 score_df
+
+
 
 # %%
 # As with :class:`~sklearn.naive_bayes.GaussianNB` above, calibration improves

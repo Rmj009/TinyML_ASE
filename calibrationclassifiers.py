@@ -52,13 +52,8 @@ plt.plot(diabetes_X_test, diabetes_y_pred, color="blue", linewidth=3)
 
 plt.xticks(())
 plt.yticks(())
-
 plt.show()
 
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-# from google.colab import files
 
 modul = np.linspace(-112, 1, num=100, dtype=int ,endpoint = False) # ,endpoint = False >>> rid off floating
 pp = np.linspace(6917, 1, num=100, dtype=int ,endpoint = False)
@@ -87,13 +82,10 @@ Inputparams = np.transpose(np.array([ modul, pp, stablity]))
 # print("Shape: ", array_rain_fall_csv_saved.shape)
 # print("Data Type: ", array_rain_fall_csv_saved.dtype.name)
 
-np.linspace(1,10,10, dtype=int, endpoint = False)
-
 """# Probability Calibration curves"""
 
 from sklearn.datasets import make_classification
 from sklearn.model_selection import train_test_split
-import pandas as pd
 
 X, y = make_classification(
     n_samples=100_000, n_features=20, n_informative=2, n_redundant=2, random_state=42)
@@ -111,10 +103,7 @@ X_train, X_test, y_train, y_test = train_test_split(
     test_size=100_000 - train_samples,
 )
 
-import numpy as np
-
 from sklearn.svm import LinearSVC
-
 
 class NaivelyCalibratedLinearSVC(LinearSVC):
     """LinearSVC with `predict_proba` method that naively scales
@@ -196,68 +185,3 @@ for i, (_, name) in enumerate(clf_list):
 plt.tight_layout()
 plt.show()
 
-"""# Prediction intervals for gradient boosting regression"""
-
-import numpy as np
-from sklearn.model_selection import train_test_split
-
-
-def f(x):
-    """The function to predict."""
-    return x * np.sin(x)
-
-
-rng = np.random.RandomState(42)
-X = np.atleast_2d(rng.uniform(0, 10.0, size=1000)).T
-expected_y = f(X).ravel()
-
-sigma = 0.5 + X.ravel() / 10
-noise = rng.lognormal(sigma=sigma) - np.exp(sigma ** 2 / 2)
-y = expected_y + noise
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
-
-from sklearn.ensemble import GradientBoostingRegressor
-from sklearn.metrics import mean_pinball_loss, mean_squared_error
-
-
-all_models = {}
-common_params = dict(
-    learning_rate=0.05,
-    n_estimators=200,
-    max_depth=2,
-    min_samples_leaf=9,
-    min_samples_split=9,
-)
-for alpha in [0.05, 0.5, 0.95]:
-    gbr = GradientBoostingRegressor(loss="quantile", alpha=alpha, **common_params)
-    all_models["q %1.2f" % alpha] = gbr.fit(X_train, y_train)
-
-gbr_ls = GradientBoostingRegressor(loss="squared_error", **common_params)
-all_models["mse"] = gbr_ls.fit(X_train, y_train)
-
-xx = np.atleast_2d(np.linspace(0, 10, 1000)).T
-
-import matplotlib.pyplot as plt
-
-
-y_pred = all_models["mse"].predict(xx)
-y_lower = all_models["q 0.05"].predict(xx)
-y_upper = all_models["q 0.95"].predict(xx)
-y_med = all_models["q 0.50"].predict(xx)
-
-fig = plt.figure(figsize=(10, 10))
-plt.plot(xx, f(xx), "g:", linewidth=3, label=r"$f(x) = x\,\sin(x)$")
-plt.plot(X_test, y_test, "b.", markersize=10, label="Test observations")
-plt.plot(xx, y_med, "r-", label="Predicted median")
-plt.plot(xx, y_pred, "r-", label="Predicted mean")
-plt.plot(xx, y_upper, "k-")
-plt.plot(xx, y_lower, "k-")
-plt.fill_between(
-    xx.ravel(), y_lower, y_upper, alpha=0.4, label="Predicted 90% interval"
-)
-plt.xlabel("$x$")
-plt.ylabel("$f(x)$")
-plt.ylim(-10, 25)
-plt.legend(loc="upper left")
-plt.show()
