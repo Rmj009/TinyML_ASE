@@ -11,8 +11,16 @@ Original file is located at
 
 import matplotlib.pyplot as plt
 import numpy as np
+from sklearn.svm import LinearSVC
+from matplotlib.gridspec import GridSpec
 from sklearn import datasets, linear_model
+from sklearn.calibration import CalibrationDisplay
+from sklearn.datasets import make_classification
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
 
 # Load the diabetes dataset
 diabetes_X, diabetes_y = datasets.load_diabetes(return_X_y=True) # (diabetes_X).shape >>> (442,10)
@@ -84,8 +92,6 @@ Inputparams = np.transpose(np.array([ modul, pp, stablity]))
 
 """# Probability Calibration curves"""
 
-from sklearn.datasets import make_classification
-from sklearn.model_selection import train_test_split
 
 X, y = make_classification(
     n_samples=100_000, n_features=20, n_informative=2, n_redundant=2, random_state=42)
@@ -103,7 +109,6 @@ X_train, X_test, y_train, y_test = train_test_split(
     test_size=100_000 - train_samples,
 )
 
-from sklearn.svm import LinearSVC
 
 class NaivelyCalibratedLinearSVC(LinearSVC):
     """LinearSVC with `predict_proba` method that naively scales
@@ -124,10 +129,6 @@ class NaivelyCalibratedLinearSVC(LinearSVC):
         proba = np.c_[proba_neg_class, proba_pos_class]
         return proba
 
-from sklearn.calibration import CalibrationDisplay
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.naive_bayes import GaussianNB
 
 # Create classifiers
 lr = LogisticRegression()
@@ -142,8 +143,6 @@ clf_list = [
     (rfc, "Random forest"),
 ]
 
-import matplotlib.pyplot as plt
-from matplotlib.gridspec import GridSpec
 
 fig = plt.figure(figsize=(10, 10))
 gs = GridSpec(4, 2)
