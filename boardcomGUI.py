@@ -53,17 +53,16 @@ class MyWidget(QWidget):
             self.mybutton.setText('btn-clicked !!')
 
 class Example(QWidget):
-   def __init__(self):
+    def __init__(self):
       super(Example, self).__init__()
       self.initUI()
-
-   def initUI(self):
+    def initUI(self):
       self.text = "hello world"
       self.setGeometry(100,100, 400,300)
       self.setWindowTitle('Draw Demo')
       self.show()
 
-   def paintEvent(self, event):
+    def paintEvent(self, event):
       qp = QPainter()
       qp.begin(self)
       qp.setPen(QColor(Qt.red))
@@ -77,7 +76,6 @@ class Example(QWidget):
       qp.drawPixmap(220,10,QPixmap("pythonlogo.png"))
       qp.fillRect(20,175,130,70,QBrush(Qt.SolidPattern))
       qp.end()
-
 
     def QtTellTime(self):
 
