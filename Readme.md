@@ -1,6 +1,15 @@
 echo!
 # Push to custom github repository CalibrationTunning
 
+## TinyML paperwithcode
+* [MIT_han_lab](https://paperswithcode.com/paper/tiny-transfer-learning-towards-memory) via Pytorch
+
+## Notice
+
+* requirements.txt list document the required libraries prior to running this project
+* gitignore
+
+
 ##### The project was suspended vocally
 
 To generate a token using the instructions from Creating a personal access token.
@@ -13,9 +22,3 @@ git remote add origin https://[TOKEN]@github.com/[USER]/[REPO]
 git push
 
 ```
-
-
-## Notice
-
-* requirements.txt list document the required libraries prior to running this project
-* gitignore
