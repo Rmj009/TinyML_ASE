@@ -23,12 +23,26 @@ def run_timing():
         one_run = input('Enter 10 km run time: ')
         if not one_run:
             break
-            number_of_runs += 1
-            total_time += float(one_run)
-            average_time = total_time / number_of_runs
-            print(f'Average of {average_time}, over {number_of_runs} runs')
-            run_timing()
+        number_of_runs += 1
+        total_time += float(one_run)
+        average_time = total_time / number_of_runs
+        print(f'Average of {average_time}, over {number_of_runs} runs')
+
+# run_timing()
+
+
+# """ Chapter2 String """
+
+def pig_latin(word): 
+    if word[0] in 'aeiou': 
+        return f'{word}way' 
+    else:
+        return f'{word[1:]}{word[0]}ay' 
+        
+print(pig_latin('python'))
 
 
 if __name__ == '_main__':
     guessing_game()
+    run_timing()
+    pig_latin(word = 'stron')
