@@ -12,7 +12,13 @@ def guessing_game():
         else:
             print(f'Your guess of {user_guess} is too high!')
 
+# guessing_game()
 
+# def mysum(*numbers):
+#     output = 0 
+#     for number in numbers: 
+#         output += number 
+#         return output 
 
 
 def run_timing():
@@ -31,18 +37,20 @@ def run_timing():
 # run_timing()
 
 
-# """ Chapter2 String """
+# # """ Chapter2 String """
 
-def pig_latin(word): 
-    if word[0] in 'aeiou': 
-        return f'{word}way' 
-    else:
-        return f'{word[1:]}{word[0]}ay' 
+# def pig_latin(word): 
+#     if word[0] in 'aeiou': 
+#         return f'{word}way' 
+#     else:
+#         return f'{word[1:]}{word[0]}ay' 
         
-print(pig_latin('python'))
 
+# def main():
+    
+    # run_timing()
+    # print(pig_latin('pythonic'))
+    # print(mysum(10, 20, 30, 40))
 
 if __name__ == '_main__':
     guessing_game()
-    run_timing()
-    pig_latin(word = 'stron')
