@@ -3,6 +3,7 @@ echo!
 
 ## TinyML paperwithcode
 * [MIT_han_lab](https://paperswithcode.com/paper/tiny-transfer-learning-towards-memory) via Pytorch
+* [Pyworkout Solution in videos](https://livebook.manning.com/video/python-workout)
 
 ## Notice
 
