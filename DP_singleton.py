@@ -25,3 +25,6 @@ karry = Singleton1("Karry")
 print(tony.getName(), karry.getName())
 print("id(tony):", id(tony), "id(Karry):", id(karry))
 print("tony == karry: ", tony == karry)
+
+ASsingelton = Singleton1("names")
+print("id as singleton" , id(ASsingelton))
