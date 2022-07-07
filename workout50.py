@@ -46,11 +46,11 @@ def run_timing():
 #         return f'{word[1:]}{word[0]}ay' 
         
 
-# def main():
+def main():
     
-    # run_timing()
-    # print(pig_latin('pythonic'))
-    # print(mysum(10, 20, 30, 40))
+    run_timing()
+    print(pig_latin('pythonic'))
+    print(mysum(10, 20, 30, 40))
 
 if __name__ == '_main__':
     guessing_game()
