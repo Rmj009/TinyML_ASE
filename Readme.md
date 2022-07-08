@@ -7,6 +7,8 @@ echo!
 
 ## Notice
 
+- deliberate amend date to tweak the commits at specific dates
+
 * requirements.txt list document the required libraries prior to running this project
 * gitignore
 
