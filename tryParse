@@ -1,0 +1,20 @@
+import pandas as pd
+downloaded = drive.CreateFile({'id':id_linkEVBboard}) 
+downloaded.GetContentFile('outBand_MT8872A_.xlsx')  
+# df3 = pd.read_csv('outBand_MT8872A_.xlsx')
+df_outBand_MT8872A = pd.read_excel("outBand_MT8872A_.xlsx", skiprows = range(1,16),header=1)
+
+downloaded = drive.CreateFile({'id':id_linkTestBoard}) 
+downloaded.GetContentFile('0815_outBand.xlsx')  
+# df3 = pd.read_csv('outBand_MT8872A_.xlsx')
+df_0815_outBand = pd.read_excel("0815_outBand.xlsx", skiprows = range(1,16),header=1)
+
+
+# df_0815_outBand["Out Band Spurious": "High Channel 2M Spurious amplitude range 24965MHz 12500MHz"]
+
+headColumn = df_0815_outBand.loc[:, "No": "BD Address"]
+outbandColumns = df_0815_outBand.loc[ : , "Out Band Spurious": "High Channel 2M Spurious amplitude range 24965MHz 12500MHz"]
+tailColumn = df_0815_outBand.loc[:, "Date Time end" : "test time"]
+
+
+pd.concat([headColumn, outbandColumns , tailColumn], ignore_index=True)
